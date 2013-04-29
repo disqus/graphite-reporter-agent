@@ -3,17 +3,21 @@ Graphite Reporter Agent
 
 Pushes metrics stored by `Metrics <http://metrics.codahale.com/>`_ for `Cassandra <http://cassandra.apache.org/>`_ into `Graphite <http://graphite.readthedocs.org/en/latest/index.html>`_. This filters ``Connection`` metrics, per-client ``Streaming`` metrics and the ``system``, ``system_auth`` and ``system_traces`` column families.
 
-Install
+Build & Install
 -------
 
-Update the host/port and then:
+Update the constants like host/port in src/main/java/com/disqus/metrics/reporter/GraphiteReporterAgent.java
 
 ::
 
-  wget http://search.maven.org/remotecontent?filepath=com/yammer/metrics/metrics-graphite/2.0.3/metrics-graphite-2.0.3.jar -O /usr/share/java/metrics-graphite-2.0.3.jar
-  javac -cp /usr/share/cassandra/lib/metrics-core-2.0.3.jar:/usr/share/java/metrics-graphite-2.0.3.jar com/disqus/metrics/reporter/GraphiteReporterAgent.java
-  jar -cfM graphite-reporter.jar .
-  mv graphite-reporter.jar /usr/share/java/
+  mvn clean package dependency:copy-dependencies
+
+and then copy the following resulting artifacts on your target host
+
+* target/graphite-reporter-agent-1.0-SNAPSHOT.jar
+* target/dependency/metrics-graphite-2.0.2.jar
+
+we will assume that you copied them to */usr/share/java*
 
 Add this to ``/etc/default/cassandra``:
 
