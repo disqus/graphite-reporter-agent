@@ -29,6 +29,14 @@ import com.yammer.metrics.reporting.GraphiteReporter;
 
 
 public class GraphiteReporterAgent {
+
+    private static final String GRAPHITE_HOST = "graphite.example.com";
+    private static final int GRAPHITE_PORT = 2003;
+    private static final long REFRESH_PERIOD = 10;
+    // Check TimeUnit javadoc for other possible values here like TimeUnit.MINUTES, etc
+    private static final TimeUnit REFRESH_PERIOD_UNIT = TimeUnit.SECONDS;
+
+
     static MetricPredicate CASS_PREDICATE = new MetricPredicate() {
         // List of CFs to ignore
         private HashSet<String> ignore_cfs = new HashSet<String>(Arrays.asList(
@@ -50,14 +58,11 @@ public class GraphiteReporterAgent {
     };
 
     public static void premain(String agentArgs) throws Exception {
+        // Don't move this as a constant because if the hostname changes we
+        // want to update it
         String hostname = InetAddress.getLocalHost().getHostName();
-
-        long period = 10;
-        TimeUnit unit = TimeUnit.SECONDS;
-        String host = "graphite.example.com";
-        int port = 2003;
         String prefix = "cassandra." + hostname.split("\\.")[0];
 
-        GraphiteReporter.enable(Metrics.defaultRegistry(), period, unit, host, port, prefix, CASS_PREDICATE);
+        GraphiteReporter.enable(Metrics.defaultRegistry(), REFRESH_PERIOD, REFRESH_PERIOD_UNIT, GRAPHITE_HOST, GRAPHITE_PORT, prefix, CASS_PREDICATE);
     }
 }
