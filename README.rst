@@ -6,7 +6,7 @@ Pushes metrics stored by `Metrics <http://metrics.codahale.com/>`_ for `Cassandr
 Build & Install
 -------
 
-Update the constants like host/port in src/main/java/com/disqus/metrics/reporter/GraphiteReporterAgent.java
+Update the constants like host/port in ``src/main/java/com/disqus/metrics/reporter/GraphiteReporterAgent.java``
 
 ::
 
@@ -15,7 +15,7 @@ Update the constants like host/port in src/main/java/com/disqus/metrics/reporter
 and then copy the following resulting artifacts on your target host
 
 * target/graphite-reporter-agent-1.0-SNAPSHOT.jar
-* target/dependency/metrics-graphite-2.0.2.jar
+* target/dependency/metrics-graphite-2.0.3.jar
 
 we will assume that you copied them to */usr/share/java*
 
