@@ -30,9 +30,9 @@ import com.yammer.metrics.reporting.GraphiteReporter;
 
 public class GraphiteReporterAgent {
 
-    private static final String GRAPHITE_HOST = "graphite.example.com";
-    private static final int GRAPHITE_PORT = 2003;
-    private static final long REFRESH_PERIOD = 10;
+    private static final String GRAPHITE_HOST = System.getProperty("graphiteHost", "graphite.example.com");
+    private static final int GRAPHITE_PORT = Integer.parseInt(System.getProperty("graphitePort", "2003"));
+    private static final long REFRESH_PERIOD = Long.parseLong(System.getProperty("graphiteRefreshSeconds", "10"));
     // Check TimeUnit javadoc for other possible values here like TimeUnit.MINUTES, etc
     private static final TimeUnit REFRESH_PERIOD_UNIT = TimeUnit.SECONDS;
 
